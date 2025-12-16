@@ -3,8 +3,6 @@ import * as CategoryService from '../services/category.service';
 
 export const create = async (req: Request, res: Response) => {
   try {
-    // We assume your auth middleware attaches 'user' to req
-    // Check your src/middlewares/auth.ts to see exactly how it attaches the user
     const userId = (req as any).user?.id || (req as any).user?._id;
 
     if (!userId) {
