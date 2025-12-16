@@ -2,7 +2,7 @@ import "dotenv/config";
 import mongoose, { Types } from "mongoose";
 import jwt from "jsonwebtoken";
 import { User } from "../src/models/User";
-import { Category } from "../src/models/Category";
+import Category from "../src/models/Category";
 
 const verifySetup = async () => {
     try {
@@ -13,7 +13,14 @@ const verifySetup = async () => {
             throw new Error("JWT_SECRET not defined in .env");
         }
 
-        await mongoose.connect(process.env.MONGO_URI);
+        const MONGO_URI = process.env.MONGO_URI;
+        const DB_NAME = (process.env.DB_NAME || "budget_tracker").toLowerCase();
+
+        const cleanURI = MONGO_URI.endsWith('/') ? MONGO_URI.slice(0, -1) : MONGO_URI;
+        const connectionString = `${cleanURI}/${DB_NAME}`;
+
+        console.log(`Connecting to ${connectionString}...`);
+        await mongoose.connect(connectionString);
         console.log("Connected to MongoDB");
 
         // 1. Create/Find User

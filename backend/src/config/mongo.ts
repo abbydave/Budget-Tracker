@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async (): Promise<void> => {
   try {
     const MONGO_URI = process.env.MONGO_URI;
-    const DB_NAME = process.env.DB_NAME;
+    const DB_NAME = (process.env.DB_NAME || "budget_tracker").toLowerCase();
 
     if (!MONGO_URI) {
       throw new Error("Add Mongo URI to .env");

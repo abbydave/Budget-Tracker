@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import * as TransactionService from "../services/transaction.service";
 import { TransactionType } from "../models/Transaction";
-import { Category } from "../models/Category";
+import Category from "../models/Category";
 
 export const create = async (req: Request, res: Response) => {
     try {
-        const userId = req.user?.id || req.user?._id;
+        const userId = req.user?.id || req.user?.id;
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized" });
         }
@@ -39,7 +39,7 @@ export const create = async (req: Request, res: Response) => {
 
 export const getAll = async (req: Request, res: Response) => {
     try {
-        const userId = req.user?.id || req.user?._id;
+        const userId = req.user?.id || req.user?.id;
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized" });
         }
@@ -62,7 +62,7 @@ export const getAll = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
     try {
-        const userId = req.user?.id || req.user?._id;
+        const userId = req.user?.id || req.user?.id;
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized" });
         }
@@ -89,7 +89,7 @@ export const update = async (req: Request, res: Response) => {
 
 export const remove = async (req: Request, res: Response) => {
     try {
-        const userId = req.user?.id || req.user?._id;
+        const userId = req.user?.id || req.user?.id;
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized" });
         }

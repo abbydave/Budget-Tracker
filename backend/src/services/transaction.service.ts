@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 import { Transaction, ITransaction, TransactionType } from "../models/Transaction";
-import { Category } from "../models/Category";
+import Category from "../models/Category";
 
 interface CreateTransactionData {
     userId: string;
