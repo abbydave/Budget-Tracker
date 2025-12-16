@@ -1,34 +1,44 @@
-import { Schema, model, Document, Types } from "mongoose";
-
-export type CategoryType = "expense" | "income";
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface ICategory extends Document {
-  userId: Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
   name: string;
-  type: CategoryType;
+  type: "expense" | "income";
   createdAt: Date;
+  updatedAt: Date;
 }
 
-const CategorySchema = new Schema<ICategory>({
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-    index: true
+const CategorySchema: Schema = new Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true, 
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    type: {
+      type: String,
+      enum: ["expense", "income"],
+      required: true,
+    },
   },
-  name: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    enum: ["expense", "income"],
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  {
+    timestamps: true,
+    toJSON: {
+      transform: (doc, ret: any) => {
+        ret.id = ret._id; // Map _id to id
+        delete ret._id;
+        delete ret.__v;
+      },
+    },
   }
-});
+);
 
-export const Category = model<ICategory>("Category", CategorySchema);
+CategorySchema.index({ userId: 1, name: 1, type: 1 }, { unique: true });
+
+export default mongoose.model<ICategory>("Category", CategorySchema);

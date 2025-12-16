@@ -18,7 +18,7 @@ app.get("/api", (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", authRouter)
-app.use("/api/category", categoryRouter)
+app.use("/api/categories", categoryRouter)
 app.use("/api/transaction", transactionRouter)
 app.use("/api/budget", budgetRouter)
 app.use("/api/dashboard", dashboardRouter)
