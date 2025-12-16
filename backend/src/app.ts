@@ -4,6 +4,7 @@ import categoryRouter from "./routes/category"
 import transactionRouter from "./routes/transaction"
 import budgetRouter from "./routes/budget"
 import dashboardRouter from "./routes/dashboard"
+import profileRouter from "./routes/profile"
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api/categories", categoryRouter)
 app.use("/api/transaction", transactionRouter)
 app.use("/api/budget", budgetRouter)
 app.use("/api/dashboard", dashboardRouter)
+app.use("/api/profile", profileRouter)
 
 app.use((req:Request, res:Response)=> {
     const url = req.url

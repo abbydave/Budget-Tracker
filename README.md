@@ -13,3 +13,4 @@ A full-stack personal finance application that helps users track income and expe
 - **[Daniel Umoh](https://github.com/Danielumoh)**
 - **[Adalumo Mercy](https://github.com/Tammy080)**
 - **[Ajiboye Precious](https://github.com/Ralia101)**
+- **[Amaka Philomena](https://github.com/pheelandrea)**
