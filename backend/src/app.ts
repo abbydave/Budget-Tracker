@@ -2,12 +2,12 @@ import express, { Request, Response } from "express"
 import cors from "cors"
 
 
-import authRouter from "./routes/auth"
-import categoryRouter from "./routes/category"
-import transactionRouter from "./routes/transaction"
-import budgetRouter from "./routes/budget"
-import dashboardRouter from "./routes/dashboard"
-import profileRouter from "./routes/profile"
+import authRouter from "./routes/auth.router"
+import categoryRouter from "./routes/category.router"
+import transactionRouter from "./routes/transaction.router"
+import budgetRouter from "./routes/budget.router"
+import dashboardRouter from "./routes/dashboard.router"
+import profileRouter from "./routes/profile.router"
 
 const app = express();
 
