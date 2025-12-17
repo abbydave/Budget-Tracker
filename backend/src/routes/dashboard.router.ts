@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { authenticate } from "../middlewares/auth";
+import { authenticate } from "../middlewares/auth.middleware";
 import { Transaction } from "../models/Transaction";
 import { Types } from "mongoose";
 

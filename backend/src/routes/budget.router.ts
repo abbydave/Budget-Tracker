@@ -4,7 +4,7 @@ import {
   getBudgetsByMonth,
   deleteBudget
 } from "../controllers/budget.controller";
-import { authenticate } from "../middlewares/auth";
+import { authenticate } from "../middlewares/auth.middleware";
 
 const router = Router();
 

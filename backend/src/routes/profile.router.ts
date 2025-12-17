@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { authenticate } from "../middlewares/auth";
+import { authenticate } from "../middlewares/auth.middleware";
 import { User } from "../models/User";
 
 
