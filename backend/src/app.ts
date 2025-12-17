@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express"
 import cors from "cors"
 
-
 import authRouter from "./routes/auth.router"
 import categoryRouter from "./routes/category.router"
 import transactionRouter from "./routes/transaction.router"
