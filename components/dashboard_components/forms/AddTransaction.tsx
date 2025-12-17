@@ -2,10 +2,18 @@
 import { useState } from 'react';
 import { X, DollarSign, Calendar, Tag, FileText } from 'lucide-react';
 
+interface TransactionData {
+  type: 'income' | 'expense';
+  amount: number;
+  date: string;
+  category: string;
+  description: string;
+}
+
 interface AddTransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (data: string) => void; 
+  onSave: (data: TransactionData) => void;
 }
 
 export default function AddTransactionModal({ isOpen, onClose, onSave }: AddTransactionModalProps) {

@@ -59,7 +59,6 @@ const NavLinks = () => {
     {/* Desktop view */}
     <div className='bg-[#1F2937] mt-0 md:mt-6 rounded-xl w-5/6 mx-auto'>
       {links.map((link) => {
-        const LinkIcon = link.icon;
         return (
           <Link
             key={link.name}
