@@ -1,4 +1,7 @@
-import express, { NextFunction, Request, Response } from "express"
+import express, { Request, Response } from "express"
+import cors from "cors"
+
+
 import authRouter from "./routes/auth"
 import categoryRouter from "./routes/category"
 import transactionRouter from "./routes/transaction"
@@ -7,6 +10,8 @@ import dashboardRouter from "./routes/dashboard"
 import profileRouter from "./routes/profile"
 
 const app = express();
+
+app.use(cors())
 
 app.use(express.json());
 

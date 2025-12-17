@@ -41,6 +41,10 @@ router.put("/", async(req:Request, res:Response) => {
   }
 
     const user = await User.findById(userId);
+    console.log(userId);
+    console.log(user);
+    
+    
 
    if (!user) {
       return res

@@ -6,6 +6,8 @@ export interface IUser extends Document {
   password: string;
   firstName: string;
   lastName: string;
+  otp?: string | null;
+  otpExpiry?: Number | null;
   createdAt: Date;
 }
 
@@ -14,24 +16,30 @@ const UserSchema = new Schema<IUser>({
     type: String,
     required: true,
     unique: true,
-    lowercase: true
+    lowercase: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   firstName: {
     type: String,
-    required: true
+    required: true,
   },
-   lastName: {
+  lastName: {
     type: String,
-    required: true
+    required: true,
+  },
+  otp: {
+    type: String,
+  },
+  otpExpiry: {
+    type: Number,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 export const User = model<IUser>("User", UserSchema);
