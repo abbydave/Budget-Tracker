@@ -36,8 +36,8 @@ export default function TransactionList({ transactions }: { transactions: Transa
                 <p className="text-xs text-gray-500">{t.category}</p>
               </div>
             </div>
-            <div className={`text-sm font-semibold ${t.type === 'income' ? 'text-green-400' : 'text-white'}`}>
-              {t.type === 'income' ? '+' : ''}${t.amount.toLocaleString()}
+            <div className={`text-sm font-semibold ₦{t.type === 'income' ? 'text-green-400' : 'text-white'}`}>
+              {t.type === 'income' ? '+' : ''}₦{t.amount.toLocaleString()}
             </div>
           </div>
         ))}

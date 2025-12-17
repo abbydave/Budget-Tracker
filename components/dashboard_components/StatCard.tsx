@@ -24,18 +24,18 @@ export default function StatCard({ balance, income, expenses }: StatCardProps) {
         <div className="mb-8">
           <span className="text-gray-400 text-sm block mb-2">Total Balance</span>
           <h2 className="text-4xl font-bold text-white tracking-tight">
-            ${safeBalance.toLocaleString()} 
+            ₦{safeBalance.toLocaleString()} 
           </h2>
         </div>
 
         <div className="flex gap-4">
           <div className="bg-[#111827] px-4 py-3 rounded-xl border border-gray-800 flex-1">
             <p className="text-xs text-gray-500 mb-1">Total Income</p>
-            <p className="text-green-400 font-semibold">+${safeIncome.toLocaleString()}</p>
+            <p className="text-green-400 font-semibold">+₦{safeIncome.toLocaleString()}</p>
           </div>
           <div className="bg-[#111827] px-4 py-3 rounded-xl border border-gray-800 flex-1">
             <p className="text-xs text-gray-500 mb-1">Total Expenses</p>
-            <p className="text-red-400 font-semibold">-${safeExpenses.toLocaleString()}</p>
+            <p className="text-red-400 font-semibold">-₦{safeExpenses.toLocaleString()}</p>
           </div>
         </div>
       </div>

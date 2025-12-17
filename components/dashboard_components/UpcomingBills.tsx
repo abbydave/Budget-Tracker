@@ -28,7 +28,7 @@ export default function UpcomingBills({ bills }: { bills: Bill[] }) {
               </div>
             </div>
             <div className="text-sm font-semibold text-white">
-              ${bill.amount.toLocaleString()}
+              ₦{bill.amount.toLocaleString()}
             </div>
           </div>
         ))}

@@ -41,7 +41,7 @@ export default function BudgetForm({ categories, onSetBudget }: BudgetFormProps)
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-gray-400 mb-2">Budget Limit ($)</label>
+          <label className="block text-xs font-medium text-gray-400 mb-2">Budget Limit (₦)</label>
           <input
             type="number"
             min="0"

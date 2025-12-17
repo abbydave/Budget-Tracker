@@ -55,7 +55,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSave }: AddTran
             <button
               type="button"
               onClick={() => setType('expense')}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ₦{
                 type === 'expense' 
                   ? 'bg-red-500/10 text-red-500 shadow-sm' 
                   : 'text-gray-400 hover:text-white'
@@ -66,7 +66,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSave }: AddTran
             <button
               type="button"
               onClick={() => setType('income')}
-              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+              className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ₦{
                 type === 'income' 
                   ? 'bg-green-500/10 text-green-500 shadow-sm' 
                   : 'text-gray-400 hover:text-white'

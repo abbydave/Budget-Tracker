@@ -61,14 +61,14 @@ export default function MonthlyBudgetChart({ spent, limit }: MonthlyBudgetProps)
               <span className="w-2 h-2 rounded-full bg-primary"></span>
               <span className="text-xs text-gray-400">Spent</span>
             </div>
-            <p className="text-white font-semibold ml-4">${spent.toLocaleString()}</p>
+            <p className="text-white font-semibold ml-4">₦{spent.toLocaleString()}</p>
           </div>
           <div>
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full bg-gray-600"></span>
               <span className="text-xs text-gray-400">Limit</span>
             </div>
-            <p className="text-white font-semibold ml-4">${limit.toLocaleString()}</p>
+            <p className="text-white font-semibold ml-4">₦{limit.toLocaleString()}</p>
           </div>
         </div>
       </div>
