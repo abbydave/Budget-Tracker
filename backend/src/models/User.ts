@@ -1,10 +1,13 @@
 import { Schema, model, Document } from "mongoose";
 
 export interface IUser extends Document {
+  id: Number;
   email: string;
-  passwordHash: string;
+  password: string;
   firstName: string;
   lastName: string;
+  otp?: string | null;
+  otpExpiry?: Number | null;
   createdAt: Date;
 }
 
@@ -13,24 +16,30 @@ const UserSchema = new Schema<IUser>({
     type: String,
     required: true,
     unique: true,
-    lowercase: true
+    lowercase: true,
   },
-  passwordHash: {
+  password: {
     type: String,
-    required: true
+    required: true,
   },
   firstName: {
     type: String,
-    required: true
+    required: true,
   },
-   lastName: {
+  lastName: {
     type: String,
-    required: true
+    required: true,
+  },
+  otp: {
+    type: String,
+  },
+  otpExpiry: {
+    type: Number,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
 export const User = model<IUser>("User", UserSchema);
