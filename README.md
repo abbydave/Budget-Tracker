@@ -57,6 +57,7 @@ Before running the application, ensure you have the following installed:
 
 ```bash
 git clone https://github.com/abbydave/Budget-Tracker.git
+cd Budget-Tracker
 ```
 
 ---
