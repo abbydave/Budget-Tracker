@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { X, NairaSign, Calendar, Tag, FileText } from 'lucide-react';
+import { X, DollarSign, Calendar, Tag, FileText } from 'lucide-react';
 
 interface TransactionData {
   type: 'income' | 'expense';
@@ -79,7 +79,7 @@ export default function AddTransactionModal({ isOpen, onClose, onSave }: AddTran
           <div className="space-y-2">
             <label className="text-xs font-medium text-gray-400">Amount</label>
             <div className="relative">
-              <NairaSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+              <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
               <input
                 type="number"
                 required
