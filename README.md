@@ -57,7 +57,6 @@ Before running the application, ensure you have the following installed:
 
 ```bash
 git clone https://github.com/abbydave/Budget-Tracker.git
-cd Budget-Tracker
 ```
 
 ---
@@ -87,7 +86,8 @@ cp .env.sample .env
 Update `.env` with your configuration:
 
 ```env
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/ DB_NAME=your_db_name
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/
+DB_NAME=your_db_name
 JWT_SECRET=your_jwt_secret_key_here
 
 
