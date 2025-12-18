@@ -82,27 +82,6 @@ export const update = async (
     data: UpdateTransactionData
 ): Promise<ITransaction | null> => {
     // If updating category, verify new category ownership and type match
-    if (data.categoryId) {
-        const category = await Category.findOne({
-            _id: data.categoryId,
-            userId: userId,
-        });
-
-        if (!category) {
-            throw new Error("Category not found or does not belong to user");
-        }
-
-        // If type is also being updated, check against that, otherwise check against existing transaction type?
-        // Start simple: If categoryId is changed, ensure the NEW category type matches the transaction type
-        // If type is changing, we'd need to re-validate against category.
-        // For simplicity, let's assume we validate type if it's passed or if logic requires it.
-        // The spec says "Ensure type consistency between category and transaction"
-
-        const targetType = data.type;
-        if (targetType && category.type !== targetType) {
-            throw new Error(`Transaction type (${targetType}) must match category type (${category.type})`);
-        }
-    }
 
     return await Transaction.findOneAndUpdate(
         { _id: id, userId },

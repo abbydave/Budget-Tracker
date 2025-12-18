@@ -3,37 +3,59 @@ import * as TransactionService from "../services/transaction.service";
 import { TransactionType } from "../models/Transaction";
 import Category from "../models/Category";
 
+
 export const create = async (req: Request, res: Response) => {
     try {
         const userId = req.user?.id || req.user?.id;
         if (!userId) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized",
+                data: null,
+            });
         }
 
-        const { categoryId, type, amount, note, date } = req.body;
+        const { categoryId, amount, note, date } = req.body;
 
-        if (!categoryId || !type || !amount || !date) {
-            return res.status(400).json({ message: "Missing required fields" });
+        if (!categoryId || !amount || !date) {
+            return res.status(400).json({
+                success: false,
+                message: "Missing required fields",
+                data: null,
+            });
         }
 
-        // Check if category exists
         const category = await Category.findById(categoryId);
         if (!category) {
-            return res.status(404).json({ message: "Category not found" });
+            return res.status(404).json({
+                success: false,
+                message: "Category not found",
+                data: null,
+            });
         }
 
         const transaction = await TransactionService.create({
             userId,
             categoryId,
-            type,
+            type: category.type,
             amount,
             note,
             date: new Date(date),
         });
 
-        return res.status(201).json(transaction);
+        return res.status(201).json({
+            success: true,
+            message: "Transaction created successfully",
+            data: {
+                id: transaction._id,
+            },
+        });
     } catch (error: any) {
-        return res.status(400).json({ message: error.message });
+        return res.status(400).json({
+            success: false,
+            message: error.message,
+            data: null,
+        });
     }
 };
 
@@ -41,7 +63,11 @@ export const getAll = async (req: Request, res: Response) => {
     try {
         const userId = req.user?.id || req.user?.id;
         if (!userId) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized",
+                data: null,
+            });
         }
 
         const { startDate, endDate, type, categoryId } = req.query;
@@ -54,9 +80,27 @@ export const getAll = async (req: Request, res: Response) => {
         };
 
         const transactions = await TransactionService.findAll(userId, filters);
-        return res.json(transactions);
+        
+        const formattedTransactions = transactions.map((tx: any) => {
+            const { categoryId, _id, ...rest } = tx.toObject ? tx.toObject() : tx;
+
+                return {
+                    id: _id,
+                    ...rest,
+                    category: categoryId,
+                };
+});
+        return res.json({
+            success: true,
+            message: "Transactions fetched successfully",
+            data: formattedTransactions,
+        });
     } catch (error: any) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+            data: null,
+        });
     }
 };
 
@@ -64,26 +108,37 @@ export const update = async (req: Request, res: Response) => {
     try {
         const userId = req.user?.id || req.user?.id;
         if (!userId) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized",
+                data: null,
+            });
         }
 
         const { id } = req.params;
-        const updates = req.body;
+        const {amount, note, date} = req.body;
 
-        // Convert date string to Date object if present
-        if (updates.date) {
-            updates.date = new Date(updates.date);
-        }
-
-        const transaction = await TransactionService.update(id, userId, updates);
+        const transaction = await TransactionService.update(id, userId, {amount, note, date});
 
         if (!transaction) {
-            return res.status(404).json({ message: "Transaction not found" });
+            return res.status(404).json({
+                success: false,
+                message: "Transaction not found",
+                data: null,
+            });
         }
 
-        return res.json(transaction);
+        return res.json({
+            success: true,
+            message: "Transaction updated successfully",
+            data: transaction,
+        });
     } catch (error: any) {
-        return res.status(400).json({ message: error.message });
+        return res.status(400).json({
+            success: false,
+            message: error.message,
+            data: null,
+        });
     }
 };
 
@@ -91,18 +146,34 @@ export const remove = async (req: Request, res: Response) => {
     try {
         const userId = req.user?.id || req.user?.id;
         if (!userId) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized",
+                data: null,
+            });
         }
 
         const { id } = req.params;
         const transaction = await TransactionService.deleteTransaction(id, userId);
 
         if (!transaction) {
-            return res.status(404).json({ message: "Transaction not found" });
+            return res.status(404).json({
+                success: false,
+                message: "Transaction not found",
+                data: null,
+            });
         }
 
-        return res.json({ message: "Transaction deleted successfully" });
+        return res.json({
+            success: true,
+            message: "Transaction deleted successfully",
+            data: null,
+        });
     } catch (error: any) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+            data: null,
+        });
     }
 };

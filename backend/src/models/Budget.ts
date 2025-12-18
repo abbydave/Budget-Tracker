@@ -2,7 +2,6 @@ import { Schema, model, Document, Types } from "mongoose";
 
 export interface IBudget extends Document {
   userId: Types.ObjectId;
-  categoryId: Types.ObjectId;
   month: string; // YYYY-MM
   limit: number;
 }
@@ -13,11 +12,6 @@ const BudgetSchema = new Schema<IBudget>({
     ref: "User",
     required: true,
     index: true
-  },
-  categoryId: {
-    type: Schema.Types.ObjectId,
-    ref: "Category",
-    required: true
   },
   month: {
     type: String,
