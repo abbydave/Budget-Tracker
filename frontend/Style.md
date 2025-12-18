@@ -1,6 +1,6 @@
 ## COLOURS Used
 # --root-background: #111827
-# 
+# --navbar-background: #1E1F23
 # --indigo (primary): #7C3AED
 # --text-white (primary): #FFFFFF
 # --text-gray (nav-links): #9CA3AF

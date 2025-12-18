@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import { Wallet, Menu, X } from "lucide-react";
+import Image from "next/image";
+import logo from "../../public/landing_page_images/logo.png";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,33 +14,38 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-linear-to-br from-[#7C3AED] to-[#6366F1] rounded-lg flex items-center justify-center">
-              <Wallet className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-white text-xl font-bold">FinanceFlow</span>
-          </div>
+          <Link href='/' className="flex-shrink-0 flex items-center">
+            <Image
+              src={logo}
+              alt="FinanceFlow Logo"
+              className=" w-30 h-full object-contain"
+            />
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <a
               href="#home"
-              className="text-[#9CA3AF] hover:text-white transition-colors">
+              className="text-[#9CA3AF] hover:text-white transition-colors"
+            >
               Home
             </a>
             <a
               href="#features"
-              className="text-[#9CA3AF] hover:text-white transition-colors">
+              className="text-[#9CA3AF] hover:text-white transition-colors"
+            >
               Features
             </a>
             <a
               href="#how-it-works"
-              className="text-[#9CA3AF] hover:text-white transition-colors">
+              className="text-[#9CA3AF] hover:text-white transition-colors"
+            >
               How It Works
             </a>
             <a
               href="#pricing"
-              className="text-[#9CA3AF] hover:text-white transition-colors">
+              className="text-[#9CA3AF] hover:text-white transition-colors"
+            >
               Pricing
             </a>
           </div>
@@ -55,7 +63,8 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             className="md:hidden text-white"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
             {isMobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
@@ -65,22 +74,26 @@ const Navbar = () => {
           <div className="md:hidden mt-4 pb-4 space-y-4">
             <a
               href="#home"
-              className="block text-[#9CA3AF] hover:text-white transition-colors">
+              className="block text-[#9CA3AF] hover:text-white transition-colors"
+            >
               Home
             </a>
             <a
               href="#features"
-              className="block text-[#9CA3AF] hover:text-white transition-colors">
+              className="block text-[#9CA3AF] hover:text-white transition-colors"
+            >
               Features
             </a>
             <a
               href="#how-it-works"
-              className="block text-[#9CA3AF] hover:text-white transition-colors">
+              className="block text-[#9CA3AF] hover:text-white transition-colors"
+            >
               How It Works
             </a>
             <a
               href="#pricing"
-              className="block text-[#9CA3AF] hover:text-white transition-colors">
+              className="block text-[#9CA3AF] hover:text-white transition-colors"
+            >
               Pricing
             </a>
             <div className="flex flex-col space-y-2 pt-4">
