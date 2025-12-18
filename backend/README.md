@@ -628,7 +628,6 @@ Authorization: Bearer <token>
 ```json
 {
   "categoryId": "string (required, MongoDB ObjectId of existing user category)",
-  "type": "string (required, enum: 'expense' | 'income')",
   "amount": "number (required, positive number)",
   "date": "string (required, ISO 8601 date format, e.g., '2025-03-15T10:30:00Z')",
   "note": "string (optional, transaction description)"
