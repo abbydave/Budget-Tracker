@@ -35,7 +35,7 @@ export const sendEmail = async ({
           <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; margin-top:40px; border-radius:8px; overflow:hidden;">
             <tr>
               <td style="background:#6a0dad; padding:20px; text-align:center; color:#ffffff;">
-                <h2 style="margin:0;">Budget Tracker</h2>
+                <h2 style="margin:0;">FinanceFlow</h2>
               </td>
             </tr>
             <tr>
@@ -67,13 +67,13 @@ export const sendEmail = async ({
 
                 <p style="font-size:14px; margin-top:30px;">
                   Regards,<br />
-                  <strong>Budget Tracker Team</strong>
+                  <strong>FinanceFlow Team</strong>
                 </p>
               </td>
             </tr>
             <tr>
               <td style="background:#f4f1fa; text-align:center; padding:15px; font-size:12px; color:#777;">
-                © ${new Date().getFullYear()} Budget Tracker. All rights reserved.
+                © ${new Date().getFullYear()} FinanceFlow. All rights reserved.
               </td>
             </tr>
           </table>
