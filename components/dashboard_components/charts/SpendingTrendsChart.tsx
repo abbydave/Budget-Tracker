@@ -66,6 +66,18 @@ export default function SpendingTrendsChart({ data }: { data: SpendingData[] }) 
         borderWidth: 1,
         padding: 10,
         displayColors: false,
+        callbacks: {
+          label: function(context: any) {
+            let label = context.dataset.label || '';
+            if (label) {
+                label += ': ';
+            }
+            if (context.parsed.y !== null) {
+                label += '₦' + context.parsed.y.toLocaleString();
+            }
+            return label;
+          }
+        }
       },
     },
     scales: {

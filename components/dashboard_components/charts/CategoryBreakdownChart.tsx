@@ -29,7 +29,21 @@ export default function CategoryBreakdownChart({ categories }: { categories: Cat
     cutout: '65%',
     plugins: {
       legend: { display: false }, // Custom legend
-      tooltip: { enabled: true },
+      tooltip: {
+        enabled: true,
+        callbacks: {
+          label: function(context: any) {
+            let label = context.label || '';
+            if (label) {
+                label += ': ';
+            }
+            if (context.parsed !== null) {
+                label += '₦' + context.parsed.toLocaleString();
+            }
+            return label;
+          }
+        }
+      },
     },
     maintainAspectRatio: false,
   };
