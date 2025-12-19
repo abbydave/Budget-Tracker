@@ -42,37 +42,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", gap: 24, overflow: "hidden" }}>
-      <aside
-        style={{
-          width: 260,
-          flex: "0 0 260px",
-          minWidth: 200,
-          display: "flex",
-          flexDirection: "column",
-          padding: "20px 12px",
-          boxSizing: "border-box",
-        }}
-      >
-        <SideBar />
-      </aside>
+    <div className="flex h-screen flex-col overflow-hidden text-[#FFFFFF]">
+      
+      <div className=" bg-[#1E1F23] text-[#9CA3AF] h-15  border-b-[#6366F1]">
+        <NavBar />
+      </div>
 
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh",
-          overflow: "hidden",
-        }}
-      >
-        <header style={{ padding: "18px 20px 0 20px", boxSizing: "border-box" }}>
-          <NavBar />
-        </header>
-
-        <main style={{ flex: 1, overflowY: "auto", padding: "20px" }}>
-          <div className="container">{children}</div>
-        </main>
+      <div className="flex flex-col md:flex-row w-full grow h-0">
+        
+        <div className=" flex-none md:block md:w-66 bg-[#111827]">
+          <SideBar />
+        </div>
+  
+        <div className="bg-[#111827] flex-1 md:overflow-y-auto px-4 md:px-7.5 py-4 h-full overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>
   );
