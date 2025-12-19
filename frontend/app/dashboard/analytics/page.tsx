@@ -116,7 +116,7 @@ const AnalyticsPage = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold text-white">Analytics & Insights</h1>
         <div className="flex items-center gap-4">
           <button

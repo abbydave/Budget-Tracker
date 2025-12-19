@@ -65,7 +65,7 @@ const NavBar = () => {
 
     return (
         <div className='text-[#FFFFFF] flex items-center px-6 sm:px-10 h-full border-b border-b-[#7C3AED]'>
-            <Link href='/' className='w-66'>
+            <Link href='/' className='w-60 sm:w-66'>
                 <Image src={logo} alt="logo" width={150} height={150} />
             </Link>
 
