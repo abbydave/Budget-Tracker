@@ -1,19 +1,16 @@
 @import "tailwindcss";
 
-:root {
-  --root-background: #111827;
-  --indigo: #7C3AED;
-  --text-white: #FFFFFF;
-  --text-gray: #9CA3AF;
-  --purple: #6366F1;
-  --glass-background: #1F2937;
-  --chart-lines: #22D3EE;
-  --chart-fills: #7C3AED;
-  --donut-chart: #374151;
-  --text-slate-200: #E2E8F0;
-  --text-slate-400: #94A3B8;
-  --electric-blue: #3B82F6;
+:root{
+  --bg:#0b1020;
+  --card: rgba(255,255,255,0.04);
+  --muted: #9aa3b2;
+  --accent: #7C3AED;
+  --accent-2: #6D28D9;
+  --success: #10b981;
+  --danger: #ef4444;
+  --glass: rgba(255,255,255,0.04);
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -26,4 +23,88 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height:100%;
+  background:linear-gradient(180deg,var(--bg) 0%, #071025 100%);
+  color: #E6EEF8;
+  margin:0;
+  padding:0;
 }
+
+/* improved container */
+.container {
+  width:100%;
+  max-width:1120px; /* comfortable width */
+  margin:0 auto;
+  padding:16px;
+  box-sizing:border-box;
+}
+
+/* card */
+.card {
+  background: var(--card);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;
+  padding:16px;
+  box-sizing:border-box;
+}
+
+/* utility: responsive grid for dashboard */
+.dashboard-grid {
+  display:grid;
+  gap:16px;
+  grid-template-columns: 1fr;
+}
+@media (min-width:720px){
+  .dashboard-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap:20px; }
+}
+@media (min-width:1100px){
+  .dashboard-grid { grid-template-columns: 1.6fr 1fr; gap:24px; }
+}
+
+/* summary row */
+.summary-row {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.summary-item {
+  flex:1 1 220px;
+  min-width:200px;
+  padding:12px;
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+}
+
+/* typography helpers */
+.h1 { font-size:20px; font-weight:700; margin:0; }
+.h2 { font-size:16px; font-weight:600; margin:0; }
+.muted { color:var(--muted); font-size:13px; }
+
+/* fix overflow */
+*{box-sizing:border-box;}
+html,body{overflow-x:hidden;}
+
+/* small helpers */
+.kicker { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+.pill { padding:6px 10px; border-radius:999px; font-size:12px; }
+
+.progress {
+  background: rgba(255,255,255,0.06);
+  height:10px;
+  border-radius:999px;
+  overflow:hidden;
+}
+.progress > i {
+  display:block;
+  height:100%;
+  transition:width .45s ease;
+}
+
+/* responsive table wrapper */
+.table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+/* small visual accents */
+.btn { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; cursor:pointer; }
+.btn-primary { background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; border:none; }
+.btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--muted); }

@@ -1,235 +1,289 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { dashboardService, MonthlySummary } from "@/services/dashboard-service";
-import { budgetService, Budget } from "@/services/budget-service";
+import { dashboardService } from "@/services/dashboard-service";
+import { budgetService } from "@/services/budget-service";
 
 const DashboardPage = () => {
   const [currentMonth, setCurrentMonth] = useState<string>("");
-  const [summary, setSummary] = useState<MonthlySummary | null>(null);
-  const [budget, setBudget] = useState<Budget | null>(null);
+  const [summary, setSummary] = useState<any | null>(null);
+  const [budget, setBudget] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Get current month in YYYY-MM format
   useEffect(() => {
     const now = new Date();
-    const month = now.toISOString().split("T")[0].slice(0, 7);
+    const month = now.toISOString().slice(0, 7);
     setCurrentMonth(month);
   }, []);
 
-  // Fetch summary and budget
   useEffect(() => {
     if (!currentMonth) return;
-
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
-
-        const [summaryRes, budgetRes] = await Promise.all([
+        const [sumRes, budRes] = await Promise.all([
           dashboardService.getMonthlySummary(currentMonth),
           budgetService.getBudgetByMonth(currentMonth),
         ]);
-
-        if (summaryRes.success) {
-          setSummary(summaryRes.data);
-        }
-
-        if (budgetRes.success && budgetRes.data.length > 0) {
-          setBudget(budgetRes.data[0]);
-        }
+        if (sumRes.success) setSummary(sumRes.data);
+        if (budRes.success && budRes.data.length) setBudget(budRes.data[0]);
       } catch (err: any) {
-        setError(err.message || "Failed to load dashboard data");
+        setError(err.message || "Failed to load dashboard");
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [currentMonth]);
 
-  const handlePreviousMonth = () => {
-    const date = new Date(currentMonth + "-01");
-    date.setMonth(date.getMonth() - 1);
-    setCurrentMonth(date.toISOString().split("T")[0].slice(0, 7));
+  const formatCurrency = (n: number) =>
+    `₦${(n || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+
+  const handleMonth = (dir: "prev" | "next") => {
+    const d = new Date(currentMonth + "-01");
+    d.setMonth(d.getMonth() + (dir === "prev" ? -1 : 1));
+    setCurrentMonth(d.toISOString().slice(0, 7));
   };
 
-  const handleNextMonth = () => {
-    const date = new Date(currentMonth + "-01");
-    date.setMonth(date.getMonth() + 1);
-    setCurrentMonth(date.toISOString().split("T")[0].slice(0, 7));
-  };
+  const budgetPct =
+    budget && summary
+      ? Math.min(
+          (summary.totalExpense || 0) / (budget.limit || 1) * 100,
+          100
+        )
+      : 0;
 
-  const budgetPercentage = budget
-    ? Math.min((summary?.totalExpense || 0) / budget.limit * 100, 100)
-    : 0;
-
-  const formatCurrency = (amount: number) => {
-    return `₦${amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
-  };
-
-  const formatMonth = (monthStr: string) => {
-    const date = new Date(monthStr + "-01");
-    return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
-  };
-
-  if (loading && !summary) {
+  if (loading) {
     return (
-      <div className="p-6 text-white text-center">
-        Loading dashboard...
+      <div className="card" style={{ textAlign: "center" }}>
+        Loading dashboard…
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      {/* Month Navigation */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-        <div className="flex items-center gap-4">
+    <div style={{ display: "grid", gap: 18 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 12,
+        }}
+      >
+        <div>
+          <h1 className="h1">Dashboard</h1>
+          <div className="muted" style={{ marginTop: 6 }}>
+            Overview & quick actions
+          </div>
+        </div>
+
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
           <button
-            onClick={handlePreviousMonth}
-            className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg transition"
+            className="btn btn-ghost"
+            onClick={() => handleMonth("prev")}
           >
-            ← Previous
+            ←
           </button>
-          <span className="text-lg text-gray-300 min-w-[180px] text-center">
-            {formatMonth(currentMonth)}
-          </span>
+          <div className="kicker">
+            {new Date(currentMonth + "-01").toLocaleString(undefined, {
+              month: "long",
+              year: "numeric",
+            })}
+          </div>
           <button
-            onClick={handleNextMonth}
-            className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg transition"
+            className="btn btn-ghost"
+            onClick={() => handleMonth("next")}
           >
-            Next →
+            →
           </button>
         </div>
       </div>
 
       {error && (
-        <div className="p-4 bg-red-500/10 border border-red-500/50 text-red-400 rounded-lg">
+        <div className="card" style={{ color: "var(--danger)" }}>
           {error}
         </div>
       )}
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-6">
-        {/* Income Card */}
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm mb-2">Total Income</p>
-              <p className="text-2xl font-bold text-green-400">
-                {formatCurrency(summary?.totalIncome || 0)}
-              </p>
+      <div className="summary-row">
+        <div className="summary-item card">
+          <div className="kicker">Total Income</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 8,
+            }}
+          >
+            <div className="h2" style={{ color: "var(--success)" }}>
+              {formatCurrency(summary?.totalIncome || 0)}
             </div>
-            <div className="text-4xl text-green-500 opacity-20">↓</div>
+            <div className="pill muted">Income</div>
           </div>
         </div>
 
-        {/* Expense Card */}
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm mb-2">Total Expenses</p>
-              <p className="text-2xl font-bold text-red-400">
-                {formatCurrency(summary?.totalExpense || 0)}
-              </p>
+        <div className="summary-item card">
+          <div className="kicker">Total Expense</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 8,
+            }}
+          >
+            <div className="h2" style={{ color: "var(--danger)" }}>
+              {formatCurrency(summary?.totalExpense || 0)}
             </div>
-            <div className="text-4xl text-red-500 opacity-20">↑</div>
+            <div className="pill muted">Expense</div>
           </div>
         </div>
 
-        {/* Balance Card */}
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm mb-2">Balance</p>
-              <p
-                className={`text-2xl font-bold ${
-                  (summary?.balance || 0) >= 0
-                    ? "text-blue-400"
-                    : "text-red-400"
-                }`}
-              >
-                {formatCurrency(summary?.balance || 0)}
-              </p>
-            </div>
-            <div className="text-4xl text-blue-500 opacity-20">⚖️</div>
+        <div className="summary-item card">
+          <div className="kicker">Balance</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 8,
+            }}
+          >
+            <div className="h2">{formatCurrency(summary?.balance || 0)}</div>
+            <div className="pill muted">Net</div>
           </div>
         </div>
       </div>
 
-      {/* Budget Overview */}
-      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
-        <h2 className="text-xl font-bold text-white mb-6">Monthly Budget</h2>
-
-        {budget ? (
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-gray-400 text-sm">Budget Limit</p>
-                <p className="text-lg font-semibold text-white">
-                  {formatCurrency(budget.limit)}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-400 text-sm">Spent This Month</p>
-                <p className="text-lg font-semibold text-white">
-                  {formatCurrency(summary?.totalExpense || 0)}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-400 text-sm">Remaining</p>
-                <p
-                  className={`text-lg font-semibold ${
-                    (budget.limit - (summary?.totalExpense || 0)) >= 0
-                      ? "text-green-400"
-                      : "text-red-400"
-                  }`}
-                >
-                  {formatCurrency(
-                    Math.max(0, budget.limit - (summary?.totalExpense || 0))
-                  )}
-                </p>
-              </div>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="mt-4">
-              <div className="flex justify-between mb-2">
-                <span className="text-sm text-gray-400">Progress</span>
-                <span className="text-sm text-gray-400">
-                  {budgetPercentage.toFixed(1)}%
-                </span>
-              </div>
-              <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
-                <div
-                  className={`h-full transition-all ${
-                    budgetPercentage > 100
-                      ? "bg-red-500"
-                      : budgetPercentage > 75
-                      ? "bg-yellow-500"
-                      : "bg-green-500"
-                  }`}
-                  style={{ width: `${Math.min(budgetPercentage, 100)}%` }}
-                />
-              </div>
+      <div
+        className="card"
+        style={{ display: "grid", gridTemplateColumns: "1fr", gap: 12 }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <div className="kicker">Monthly Budget</div>
+            <div className="h2" style={{ marginTop: 6 }}>
+              {budget ? formatCurrency(budget.limit) : "No budget set"}
             </div>
           </div>
-        ) : (
-          <div className="text-center py-8">
-            <p className="text-gray-400 mb-4">
-              No budget set for {formatMonth(currentMonth)}
-            </p>
-            <a
-              href="/dashboard/budgets"
-              className="inline-block px-6 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-lg transition"
+          <div style={{ textAlign: "right" }}>
+            <div className="muted">
+              Spent: {formatCurrency(summary?.totalExpense || 0)}
+            </div>
+            <div className="muted">
+              Remaining:{" "}
+              {formatCurrency(
+                Math.max(
+                  0,
+                  (budget?.limit || 0) - (summary?.totalExpense || 0)
+                )
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 8,
+            }}
+          >
+            <div className="muted">Progress</div>
+            <div className="muted">
+              {budget ? `${budgetPct.toFixed(1)}%` : "—"}
+            </div>
+          </div>
+          <div className="progress" aria-hidden>
+            <i
+              style={{
+                width: `${Math.min(budgetPct, 100)}%`,
+                background:
+                  budgetPct > 100
+                    ? "linear-gradient(90deg,#ef4444,#f97316)"
+                    : "linear-gradient(90deg,#7C3AED,#6D28D9)",
+              }}
+            />
+          </div>
+          {budget && budgetPct > 100 && (
+            <div
+              className="muted"
+              style={{ marginTop: 8, color: "var(--danger)" }}
             >
-              Set Budget
+              Exceeded by{" "}
+              {formatCurrency((summary?.totalExpense || 0) - budget.limit)}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="dashboard-grid">
+        <div className="card">
+          <h3 className="h2">Recent Transactions</h3>
+          <div className="table-wrap" style={{ marginTop: 12 }}>
+            {/* lightweight table; link to /dashboard/transactions for full view */}
+            <table style={{ width: "100%", borderCollapse: "collapse" }}>
+              <thead
+                style={{
+                  color: "var(--muted)",
+                  fontSize: 13,
+                  textAlign: "left",
+                }}
+              >
+                <tr>
+                  <th style={{ padding: "8px 6px" }}>Date</th>
+                  <th style={{ padding: "8px 6px" }}>Category</th>
+                  <th style={{ padding: "8px 6px" }}>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    style={{ padding: "8px 6px" }}
+                    colSpan={3}
+                    className="muted"
+                  >
+                    Open Transactions page to view details
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="card">
+          <h3 className="h2">Quick Actions</h3>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+              marginTop: 12,
+            }}
+          >
+            <a className="btn btn-primary" href="/dashboard/transactions">
+              Add Transaction
+            </a>
+            <a className="btn btn-ghost" href="/dashboard/analytics">
+              View Analytics
+            </a>
+            <a className="btn btn-ghost" href="/dashboard/budgets">
+              Manage Budget
             </a>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
