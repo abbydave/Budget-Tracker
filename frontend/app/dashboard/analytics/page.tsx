@@ -192,7 +192,7 @@ const AnalyticsPage = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold text-white">Analytics & Insights</h1>
         <div className="flex items-center gap-4">
           <button
@@ -255,10 +255,10 @@ const AnalyticsPage = () => {
       )}
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-3 gap-6">
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
-          <p className="text-gray-400 text-sm mb-3">Total Income</p>
-          <p className="text-2xl md:text-xl lg:text-2xl font-bold text-green-400 break-words">
+          <p className="text-gray-400 text-sm mb-2">Total Income</p>
+          <p className="text-2xl font-bold text-green-400">
             {formatCurrency(summary?.totalIncome || 0)}
           </p>
           <p className="text-xs text-gray-500 mt-3">
@@ -267,8 +267,8 @@ const AnalyticsPage = () => {
         </div>
 
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
-          <p className="text-gray-400 text-sm mb-3">Total Expenses</p>
-          <p className="text-2xl md:text-xl lg:text-2xl font-bold text-red-400 break-words">
+          <p className="text-gray-400 text-sm mb-2">Total Expenses</p>
+          <p className="text-2xl font-bold text-red-400">
             {formatCurrency(summary?.totalExpense || 0)}
           </p>
           <p className="text-xs text-gray-500 mt-3">
@@ -277,7 +277,7 @@ const AnalyticsPage = () => {
         </div>
 
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
-          <p className="text-gray-400 text-sm mb-3">Net Balance</p>
+          <p className="text-gray-400 text-sm mb-2">Net Balance</p>
           <p
             className={`text-2xl md:text-xl lg:text-2xl font-bold break-words ${
               (summary?.balance || 0) >= 0 ? "text-blue-400" : "text-red-400"

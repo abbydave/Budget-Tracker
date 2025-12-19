@@ -150,7 +150,7 @@ const BudgetsPage = () => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col lg:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold text-white">Monthly Budget</h1>
         <div className="flex items-center gap-4">
           <button
@@ -185,7 +185,7 @@ const BudgetsPage = () => {
       {/* Budget Overview */}
       {budget && !isEditing && (
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-8">
-          <div className="grid grid-cols-3 gap-6 mb-8">
+          <div className="flex flex-col lg:flex-row justify-between gap-6 mb-8">
             {/* Budget Limit */}
             <div>
               <p className="text-gray-400 text-sm mb-2">Budget Limit</p>
