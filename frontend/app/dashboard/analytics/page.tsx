@@ -195,7 +195,8 @@ const AnalyticsPage = () => {
       <div className="flex flex-col lg:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold text-white">Analytics & Insights</h1>
         <div className="flex items-center gap-4">
-          <button
+          <div className="flex items-center gap-4">
+            <button
             onClick={() => handleMonthChange("prev")}
             className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg transition"
           >
@@ -210,6 +211,7 @@ const AnalyticsPage = () => {
           >
             Next →
           </button>
+          </div>
           <button
             onClick={exportToCSV}
             disabled={exporting}
@@ -255,7 +257,7 @@ const AnalyticsPage = () => {
       )}
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="flex flex-col lg:grid grid-cols-3 gap-6">
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-lg p-6">
           <p className="text-gray-400 text-sm mb-2">Total Income</p>
           <p className="text-2xl font-bold text-green-400">
