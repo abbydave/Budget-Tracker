@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Wallet, Menu, X } from "lucide-react";
 import Image from "next/image";
 import logo from "../../public/landing_page_images/logo.png";
@@ -8,6 +8,12 @@ import Link from "next/link";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(!!token);
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#111827]/80 backdrop-blur-md border-b border-gray-800">
@@ -52,12 +58,29 @@ const Navbar = () => {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="text-white hover:text-[#7C3AED] transition-colors">
-              Login
-            </button>
-            <button className="px-6 py-2 bg-[#6366F1] text-white rounded-lg hover:bg-[#7C3AED] transition-all">
-              Register
-            </button>
+            {isLoggedIn ? (
+              <Link
+                href="/dashboard"
+                className="px-6 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-lg transition"
+              >
+                Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="px-6 py-2 border border-[#7C3AED] text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-lg transition"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="px-6 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-lg transition"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -97,12 +120,29 @@ const Navbar = () => {
               Pricing
             </a>
             <div className="flex flex-col space-y-2 pt-4">
-              <button className="px-6 py-2 text-white border border-gray-700 rounded-lg">
-                Login
-              </button>
-              <button className="px-6 py-2 bg-[#6366F1] text-white rounded-lg">
-                Register
-              </button>
+              {isLoggedIn ? (
+                <Link
+                  href="/dashboard"
+                  className="px-6 py-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-lg transition"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="px-6 py-2 text-white border border-gray-700 rounded-lg"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="px-6 py-2 bg-[#6366F1] text-white rounded-lg"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         )}

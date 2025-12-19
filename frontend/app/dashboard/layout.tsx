@@ -1,25 +1,27 @@
+"use client";
+
+import { useEffect, ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import NavBar from "@/components/dashboard_components/NavBar";
 import SideBar from "@/components/dashboard_components/SideBar";
 
+export default function DashboardLayout({ children }: { children: ReactNode }) {
+  const router = useRouter();
 
+  useEffect(() => {
+    // Protect dashboard - redirect if no token
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      router.push("/login");
+    }
+  }, [router]);
 
-export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen flex-col overflow-hidden text-[#FFFFFF]">
-      
-      <div className=" bg-[#1E1F23] text-[#9CA3AF] h-15  border-b-[#6366F1]">
+    <div className="flex h-screen bg-gray-900">
+      <SideBar />
+      <div className="flex-1 overflow-auto">
         <NavBar />
-      </div>
-
-      <div className="flex flex-col md:flex-row w-full grow h-0">
-        
-        <div className=" flex-none md:block md:w-66 bg-[#111827]">
-          <SideBar />
-        </div>
-  
-        <div className="bg-[#111827] flex-1 md:overflow-y-auto px-4 md:px-7.5 py-4 h-full overflow-y-auto">
-          {children}
-        </div>
+        <main className="p-8">{children}</main>
       </div>
     </div>
   );
