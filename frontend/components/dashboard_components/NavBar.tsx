@@ -73,8 +73,8 @@ const NavBar = () => {
                 <h1 className='hidden md:block '>{headerText}</h1>
                 
                 <div className='flex items-center gap-3 ml-auto'>
-                    <Image src={notificationIcon} alt='notification-icon' width={24} height={24} />
-                    <Image src={profilePicture} alt='user-profile-picture' width={32} height={32} />
+                    <Image src={notificationIcon} alt='notification-icon' width={24} height={24} className='hidden md:block' />
+                    <Image src={profilePicture} alt='user-profile-picture' width={32} height={32} className='rounded-full' />
                     
                     <div className='flex flex-col'>
                         {/* Conditional Rendering: Show data if user exists, else show nothing */}
