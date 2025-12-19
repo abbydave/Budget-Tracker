@@ -194,7 +194,7 @@ const AnalyticsPage = () => {
       {/* Header */}
       <div className="flex flex-col lg:flex-row justify-between items-center">
         <h1 className="text-3xl font-bold text-white">Analytics & Insights</h1>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row items-center gap-4">
           <div className="flex items-center gap-4">
             <button
             onClick={() => handleMonthChange("prev")}
