@@ -43,11 +43,19 @@ export const create = async (req: Request, res: Response) => {
             date: new Date(date),
         });
 
+        const transactionObj = transaction.toObject ? transaction.toObject() : transaction;
+
         return res.status(201).json({
             success: true,
             message: "Transaction created successfully",
             data: {
-                id: transaction._id,
+                ...transactionObj,
+                id: transactionObj._id,
+                category: {
+                    _id: category._id,
+                    name: category.name,
+                    type: category.type,
+                },
             },
         });
     } catch (error: any) {

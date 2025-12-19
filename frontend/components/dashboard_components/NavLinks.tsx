@@ -20,6 +20,7 @@ const NavLinks = () => {
   const links = [
   { name: 'Dashboard', href: '/dashboard', icon: dashboardIcon },
   { name: 'Transactions', href: '/dashboard/transactions', icon: transactionsIcon },
+  { name: 'Categories', href: '/dashboard/categories', icon: dashboardIcon },
   { name: 'Analytics', href: '/dashboard/analytics', icon: analyticsIcon },
   { name: 'Budgets', href: '/dashboard/budgets', icon: budgetIcon },
   { name: 'Profile', href: '/dashboard/profile', icon: profileIcon },

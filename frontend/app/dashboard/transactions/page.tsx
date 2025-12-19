@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { transactionService, Transaction } from "@/services/transaction-service";
 import { categoryService, Category } from "@/services/category-service";
+import CustomDropdown from "@/components/CustomDropdown";
 
 const TransactionsPage = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -114,6 +115,8 @@ const TransactionsPage = () => {
   };
 
   const filteredTransactions = transactions.filter((t) => {
+    console.log(t);
+    
     if (filterType === "all") return true;
     return t.type === filterType;
   });
@@ -158,29 +161,43 @@ const TransactionsPage = () => {
             New Transaction
           </h2>
 
-          {error && <p className="text-sm text-red-400 mb-4">{error}</p>}
-          {success && <p className="text-sm text-green-400 mb-4">{success}</p>}
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-md">
+              <p className="text-sm text-red-400">{error}</p>
+            </div>
+          )}
+          {success && (
+            <div className="mb-4 p-3 bg-green-500/20 border border-green-500/30 rounded-md">
+              <p className="text-sm text-green-400">{success}</p>
+            </div>
+          )}
 
           <form onSubmit={handleAddTransaction} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-2 text-sm text-gray-300">
-                  Category *
-                </label>
-                <select
-                  name="categoryId"
-                  value={formData.categoryId}
-                  onChange={handleInputChange}
-                  className="w-full p-2 rounded-md bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-[#7C3AED]"
-                >
-                  <option value="">Select a category</option>
-                  {categories.map((cat) => (
-                    <option key={cat.id} value={cat.id}>
-                      {cat.name} ({cat.type})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <CustomDropdown
+                label="Category *"
+                options={[
+                  ...categories
+                    .filter((cat) => cat.type === "expense")
+                    .map((cat) => ({
+                      value: cat.id,
+                      label: cat.name,
+                      group: "Expenses",
+                    })),
+                  ...categories
+                    .filter((cat) => cat.type === "income")
+                    .map((cat) => ({
+                      value: cat.id,
+                      label: cat.name,
+                      group: "Income",
+                    })),
+                ]}
+                value={formData.categoryId}
+                onChange={(value) =>
+                  setFormData((prev) => ({ ...prev, categoryId: value }))
+                }
+                placeholder="Select a category"
+              />
 
               <div>
                 <label className="block mb-2 text-sm text-gray-300">
