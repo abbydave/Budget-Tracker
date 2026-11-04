@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 
 const CTASection = () => {
@@ -15,17 +16,21 @@ const CTASection = () => {
               Ready to Take Control of Your Finances?
             </h2>
             <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of users who are already managing their money
-              smarter with FinanceFlow
+              Log your income and expenses, set monthly budgets, and see
+              where your money goes.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 bg-white text-[#7C3AED] rounded-lg font-semibold hover:bg-gray-100 transition-all flex items-center justify-center space-x-2">
-                <span>Start Free Trial</span>
+              <Link
+                href="/signup"
+                className="px-8 py-4 bg-white text-[#7C3AED] rounded-lg font-semibold hover:bg-gray-100 transition-all flex items-center justify-center space-x-2">
+                <span>Create an Account</span>
                 <ChevronRight className="w-5 h-5" />
-              </button>
-              <button className="px-8 py-4 bg-transparent text-white rounded-lg font-semibold border-2 border-white hover:bg-white/10 transition-all">
-                Schedule Demo
-              </button>
+              </Link>
+              <Link
+                href="/login"
+                className="px-8 py-4 bg-transparent text-white rounded-lg font-semibold border-2 border-white hover:bg-white/10 transition-all text-center">
+                Sign In
+              </Link>
             </div>
           </div>
         </div>

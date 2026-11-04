@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { Wallet, Menu, X } from "lucide-react";
 import Image from "next/image";
-import logo from "../../public/landing_page_images/logo.png";
+import logo from "../../public/landing_page_images/logo-cropped.png";
+import DemoBanner from "../DemoBanner";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -17,6 +18,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-[#111827]/80 backdrop-blur-md border-b border-gray-800">
+      <DemoBanner />
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -24,7 +26,8 @@ const Navbar = () => {
             <Image
               src={logo}
               alt="FinanceFlow Logo"
-              className=" w-30 h-full object-contain"
+              priority
+              className="h-9 md:h-10 w-auto"
             />
           </Link>
 

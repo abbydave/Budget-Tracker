@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Check } from "lucide-react";
 
 const PricingSection = () => {
@@ -70,6 +71,9 @@ const PricingSection = () => {
             Flexible pricing for individuals and teams. Start free, upgrade
             anytime.
           </p>
+          <p className="text-[#94A3B8] text-sm mt-3">
+            Example pricing for this demo project. No payments are taken.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -111,14 +115,15 @@ const PricingSection = () => {
                 ))}
               </ul>
 
-              <button
-                className={`w-full py-3 rounded-lg font-semibold transition-all ${
+              <Link
+                href="/signup"
+                className={`block text-center w-full py-3 rounded-lg font-semibold transition-all ${
                   plan.highlighted
                     ? "bg-linear-to-r from-[#7C3AED] to-[#6366F1] text-white hover:shadow-lg hover:shadow-[#7C3AED]/50"
                     : "bg-[#111827] text-white border border-gray-700 hover:border-[#7C3AED]"
                 }`}>
                 Get Started
-              </button>
+              </Link>
             </div>
           ))}
         </div>

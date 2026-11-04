@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { TrendingUp, DollarSign, ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section id="home" className="pt-32 pb-20 px-6">
+    <section id="home" className="pt-36 pb-20 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
@@ -31,30 +32,19 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="group px-8 py-4 bg-linear-to-r from-[#7C3AED] to-[#6366F1] text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-[#7C3AED]/50 transition-all flex items-center justify-center space-x-2">
+              <Link
+                href="/signup"
+                className="group px-8 py-4 bg-linear-to-r from-[#7C3AED] to-[#6366F1] text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-[#7C3AED]/50 transition-all flex items-center justify-center space-x-2">
                 <span>Start Budgeting Now</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="px-8 py-4 bg-[#1F2937] text-white rounded-lg font-semibold border border-gray-700 hover:border-[#7C3AED] transition-all">
-                Watch Demo
-              </button>
+              </Link>
+              <Link
+                href="/login"
+                className="px-8 py-4 bg-[#1F2937] text-white rounded-lg font-semibold border border-gray-700 hover:border-[#7C3AED] transition-all text-center">
+                Sign In
+              </Link>
             </div>
 
-            {/* Stats */}
-            <div className="flex items-center space-x-8 pt-8">
-              <div>
-                <div className="text-3xl font-bold text-white">10K+</div>
-                <div className="text-[#94A3B8] text-sm">Active Users</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-white">$2M+</div>
-                <div className="text-[#94A3B8] text-sm">Tracked Monthly</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-white">98%</div>
-                <div className="text-[#94A3B8] text-sm">Satisfaction</div>
-              </div>
-            </div>
           </div>
 
           {/* Right Content - Dashboard Preview */}
@@ -67,7 +57,9 @@ const HeroSection = () => {
                   <span className="text-[#E2E8F0] font-semibold">
                     Monthly Overview
                   </span>
-                  <span className="text-[#22D3EE] text-sm">December 2024</span>
+                  <span className="text-[#94A3B8] text-xs px-2 py-1 rounded-full border border-gray-600">
+                    Sample data
+                  </span>
                 </div>
 
                 {/* Chart Area */}

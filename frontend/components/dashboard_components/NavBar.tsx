@@ -6,7 +6,7 @@ import notificationIcon from '../../public/dashboard_images/notification-bell.pn
 import profilePicture from '../../public/dashboard_images/profile-picture.svg';
 import { usePathname, useRouter } from 'next/navigation';
 import { userService, UserProfileData } from '@/services/user-service';
-import logo from '../../public/landing_page_images/logo.png'
+import logo from '../../public/landing_page_images/logo-cropped.png'
 import Link from 'next/link';
 
 const NavBar = () => {
@@ -66,7 +66,7 @@ const NavBar = () => {
     return (
         <div className='text-[#FFFFFF] flex items-center px-6 sm:px-10 h-full border-b border-b-[#7C3AED]'>
             <Link href='/' className='w-50 sm:w-66'>
-                <Image src={logo} alt="logo" width={150} height={150} />
+                <Image src={logo} alt="FinanceFlow logo" className="h-8 w-auto" priority />
             </Link>
 
             <div className='flex items-center flex-1 justify-between'>

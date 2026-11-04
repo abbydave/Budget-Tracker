@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import NavBar from "@/components/dashboard_components/NavBar";
 import SideBar from "@/components/dashboard_components/SideBar";
+import DemoBanner from "@/components/DemoBanner";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -43,6 +44,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="flex h-screen flex-col overflow-hidden text-[#FFFFFF]">
+      <DemoBanner />
       
       <div className=" bg-[#1E1F23] text-[#9CA3AF] h-15  border-b-[#6366F1]">
         <NavBar />
