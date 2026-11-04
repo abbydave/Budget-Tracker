@@ -45,7 +45,7 @@ const NavBar = () => {
 
     const handleLogout = async () => {
         await userService.logout();
-        router.push("/login");
+        router.push("/");
     };
 
     const getPageTitle = (path: string) => {

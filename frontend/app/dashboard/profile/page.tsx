@@ -97,7 +97,7 @@ const ProfilePage = () => {
 
   const handleLogout = async () => {
     await userService.logout();
-    router.push("/login");
+    router.push("/");
   };
 
   if (loading) {
